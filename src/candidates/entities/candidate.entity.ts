@@ -6,4 +6,8 @@ export class Candidate {
   id: number;
   @Column()
   name: string;
+  @Column()
+  surname: string;
+  @Column()
+  email: string;
 }

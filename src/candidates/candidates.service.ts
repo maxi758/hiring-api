@@ -12,7 +12,7 @@ export class CandidatesService {
     private candidateRepository: Repository<Candidate>
   ) {}
   create(createCandidateDto: CreateCandidateDto) {
-    return this.candidateRepository.create(createCandidateDto);
+    return this.candidateRepository.save(createCandidateDto);
   }
 
   findAll(): Promise<Candidate[]>{

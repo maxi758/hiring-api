@@ -5,9 +5,16 @@ import { AuthModule } from './auth/auth.module';
 import { CandidatesModule } from './candidates/candidates.module';
 import { RecruitersModule } from './recruiters/recruiters.module';
 import { CompaniesModule } from './companies/companies.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { getConnectionOptions } from 'typeorm';
 
 @Module({
-  imports: [AuthModule, CandidatesModule, RecruitersModule, CompaniesModule],
+  imports: [TypeOrmModule.forRootAsync({
+    useFactory: async () =>
+      Object.assign(await getConnectionOptions(), {
+        autoLoadEntities: true,
+      }),
+  }), AuthModule, CandidatesModule, RecruitersModule, CompaniesModule],
   controllers: [AppController],
   providers: [AppService],
 })

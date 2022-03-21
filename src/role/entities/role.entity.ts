@@ -18,8 +18,10 @@ export class Role {
 
   @CreateDateColumn()
   date: Date;
+
   @UpdateDateColumn({ nullable: true })
   update: Date;
+  
   @OneToMany(() => User, (user) => user.role)
   users: User[];
 }

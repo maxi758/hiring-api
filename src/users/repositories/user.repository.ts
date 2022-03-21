@@ -1,4 +1,4 @@
-/*import {
+import {
   BadRequestException,
   HttpException,
   NotFoundException,
@@ -61,4 +61,4 @@ export class UserRepository extends Repository<User> {
   async findOneUser(username: string): Promise<User | undefined> {
     return this.findOne({ username: username });
   }
-}*/
+}

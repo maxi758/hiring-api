@@ -20,6 +20,6 @@ export class Role {
   date: Date;
   @UpdateDateColumn({ nullable: true })
   update: Date;
-  //@OneToMany(() => User, (user) => user.role)
-  //users: User[];
+  @OneToMany(() => User, (user) => user.role)
+  users: User[];
 }

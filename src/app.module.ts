@@ -9,6 +9,7 @@ import { CompaniesModule } from './companies/companies.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { getConnectionOptions } from 'typeorm';
 import { UsersModule } from './users/users.module';
+import { EmailModule } from './email/email.module';
 
 @Module({
   imports: [ConfigModule.forRoot({ isGlobal: true }),
@@ -17,7 +18,7 @@ import { UsersModule } from './users/users.module';
       Object.assign(await getConnectionOptions(), {
         autoLoadEntities: true,
       }),
-  }), AuthModule, CandidatesModule, RecruitersModule, CompaniesModule, UsersModule],
+  }), AuthModule, CandidatesModule, RecruitersModule, CompaniesModule, UsersModule, EmailModule],
   controllers: [AppController],
   providers: [AppService],
 })

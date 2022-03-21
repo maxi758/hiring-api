@@ -25,9 +25,9 @@ import { AuthGuard } from '@nestjs/passport';
 //import { ChangePasswordDto } from './dto/change-password.dto';
 
 //@ApiTags('user')
-@Controller('user')
+@Controller('users')
 @UseInterceptors(ClassSerializerInterceptor)
-export class UserController {
+export class UsersController {
   constructor(private usersService: UsersService) {}
 
   //@ApiBearerAuth()

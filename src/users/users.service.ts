@@ -17,7 +17,7 @@ import { AuthService } from '../auth/auth.service';
 import { EmailService } from '../email/email.service';
 
 @Injectable()
-export class UserService {
+export class UsersService {
   constructor(
     @InjectRepository(Role)
     private roleRepository: Repository<Role>,
@@ -61,7 +61,7 @@ export class UserService {
     const provisionalPassword = randomStringGenerator();
     if (!user)
       throw new BadRequestException(`There is no user with email: ${email}`);
-    this.emailService.sendResetPasswordEmail(email, provisionalPassword);
+    //this.emailService.sendResetPasswordEmail(email, provisionalPassword);
     return this.userRepository.changePassword(user.id, provisionalPassword);
   }
   async removeUser(userId: number): Promise<DeleteResult> {

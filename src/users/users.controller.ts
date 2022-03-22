@@ -14,15 +14,15 @@ import {
 import { Request } from 'express';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UsersService } from './users.service';
-//import { ValidationGuard } from '../auth/validate.guard';
-//import { ValidateIdDto } from '../common/dto/validate-id';
-//import { ChangeRoleDto } from './dto/change-role.dto';
-//import { Roles } from '../auth/decorators/role.decorator';
+import { ValidationGuard } from '../auth//guards/validate.guard';
+import { ValidateIdDto } from '../common/dto/validate-id';
+import { ChangeRoleDto } from './dto/change-role.dto';
+import { Roles } from '../auth/decorators/role.decorator';
 import { AuthGuard } from '@nestjs/passport';
-//import { RoleGuard } from '../auth/guards/role.guard';
-//import { ApiTags, ApiBearerAuth, ApiParam } from '@nestjs/swagger';
-//import { ResetPasswordDto } from './dto/reset-password.dto';
-//import { ChangePasswordDto } from './dto/change-password.dto';
+import { RoleGuard } from '../auth/guards/role.guard';
+import { ApiTags, ApiBearerAuth, ApiParam } from '@nestjs/swagger';
+import { ResetPasswordDto } from './dto/reset-password.dto';
+import { ChangePasswordDto } from './dto/change-password.dto';
 
 //@ApiTags('user')
 @Controller('users')

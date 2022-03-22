@@ -16,7 +16,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { UsersService } from './users.service';
 import { ValidationGuard } from '../auth//guards/validate.guard';
 import { ValidateIdDto } from '../common/dto/validate-id';
-import { ChangeRoleDto } from './dto/change-role.dto';
+//import { ChangeRoleDto } from './dto/change-role.dto';
 import { Roles } from '../auth/decorators/role.decorator';
 import { AuthGuard } from '@nestjs/passport';
 import { RoleGuard } from '../auth/guards/role.guard';
@@ -24,28 +24,28 @@ import { ApiTags, ApiBearerAuth, ApiParam } from '@nestjs/swagger';
 import { ResetPasswordDto } from './dto/reset-password.dto';
 import { ChangePasswordDto } from './dto/change-password.dto';
 
-//@ApiTags('user')
+@ApiTags('user')
 @Controller('users')
 @UseInterceptors(ClassSerializerInterceptor)
 export class UsersController {
   constructor(private usersService: UsersService) {}
 
-  //@ApiBearerAuth()
+  @ApiBearerAuth()
   @Get('/')
-  //@UseGuards(ValidationGuard)
+  @UseGuards(ValidationGuard)
   getAll() {
     return this.usersService.getUsers();
   }
 
-  /*@ApiBearerAuth()
+  @ApiBearerAuth()
   @Get('/:id')
   @UseGuards(ValidationGuard)
   @ApiParam({ name: 'id' })
   getUserById(@Param() param: ValidateIdDto) {
     return this.usersService.getUserById(param.id);
-  }*/
+  }
 
-  /*@ApiBearerAuth()
+  @ApiBearerAuth()
   @Patch('/:id')
   @UseGuards(ValidationGuard)
   @ApiParam({ name: 'id' })
@@ -54,7 +54,7 @@ export class UsersController {
     @Param() param: ValidateIdDto,
   ) {
     return this.usersService.updateUser(param.id, updateUserDto);
-  }*/
+  }
 
   /*@ApiBearerAuth()
   @Patch('/:id/role')
@@ -66,9 +66,9 @@ export class UsersController {
     @Param() param: ValidateIdDto,
   ) {
     return this.usersService.changeRole(param.id, changeRoleDto.role);
-  }*/
-
-  /*@ApiBearerAuth()
+  }
+*/
+  @ApiBearerAuth()
   @Patch('/password/change')
   @UseGuards(AuthGuard('jwt'), ValidationGuard)
   changePassword(
@@ -76,16 +76,19 @@ export class UsersController {
     @Body() changePasswordDto: ChangePasswordDto,
   ) {
     return this.usersService.changePassword(changePasswordDto.password, request);
-  }*/
-  /*@Post('password/reset')
+  }
+
+  @Post('password/reset')
   resetPassword(@Body() resetPasswordDto: ResetPasswordDto): void {
     this.usersService.resetPassword(resetPasswordDto.email);
   }
+
   @ApiBearerAuth()
   @Delete('/:id')
-  @UseGuards(ValidationGuard)
+  @Roles('admin')
+  @UseGuards(AuthGuard('jwt'), ValidationGuard, RoleGuard)
   @ApiParam({ name: 'id' })
   deleteUser(@Param() param: ValidateIdDto) {
     this.usersService.removeUser(param.id);
-  }*/
+  }
 }

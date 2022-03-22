@@ -37,7 +37,12 @@ export class UsersService {
   }
 
   async createUser(createUserDto: CreateUserDto): Promise<User> {
-    const role = await this.roleRepository.findOne({ name: 'client' });
+    const role = await this.roleRepository.findOne({ name: 'recruiter' });
+    return this.userRepository.createUser(createUserDto, role);
+  }
+
+  async createAdmin(createUserDto: CreateUserDto): Promise<User> {
+    const role = await this.roleRepository.findOne({ name: 'admin' });
     return this.userRepository.createUser(createUserDto, role);
   }
 

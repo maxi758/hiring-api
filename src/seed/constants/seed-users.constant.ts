@@ -1,16 +1,14 @@
 export const seedUsers = [
   {
-    name: 'client',
-    lastname: 'client',
+    username: 'client',
     email: 'client@client.com',
-    password: 'client@buster',
+    password: '1234',
     role: 'client',
   },
   {
-    name: 'admin',
-    lastname: 'admin',
+    username: 'admin',
     email: 'admin@admin.com',
-    password: 'admin@buster',
+    password: '1234',
     role: 'admin',
   },
 ];

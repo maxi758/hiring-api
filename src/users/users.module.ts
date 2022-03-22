@@ -17,6 +17,6 @@ import { EmailModule } from '../email/email.module';
   ],
   providers: [UsersService],
   controllers: [UsersController],
-  exports: [UsersService],
+  exports: [UsersService, TypeOrmModule],
 })
 export class UsersModule {}

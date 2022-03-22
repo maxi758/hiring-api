@@ -10,15 +10,24 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { getConnectionOptions } from 'typeorm';
 import { UsersModule } from './users/users.module';
 import { EmailModule } from './email/email.module';
+import { SeedModule } from './seed/seed.module';
 
 @Module({
-  imports: [ConfigModule.forRoot({ isGlobal: true }),
+  imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRootAsync({
-    useFactory: async () =>
-      Object.assign(await getConnectionOptions(), {
-        autoLoadEntities: true,
-      }),
-  }), AuthModule, CandidatesModule, RecruitersModule, CompaniesModule, UsersModule, EmailModule],
+      useFactory: async () =>
+        Object.assign(await getConnectionOptions(), {
+          autoLoadEntities: true,
+        }),
+    }),
+    AuthModule,
+    CandidatesModule,
+    RecruitersModule,
+    CompaniesModule,
+    UsersModule,
+    EmailModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

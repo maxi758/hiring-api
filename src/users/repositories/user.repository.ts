@@ -3,7 +3,7 @@ import {
   HttpException,
   NotFoundException,
 } from '@nestjs/common';
-import { Role } from '../../role/entities/role.entity';
+import { Role } from '../../roles/entities/role.entity';
 import {
   DeleteResult,
   EntityRepository,

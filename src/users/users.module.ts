@@ -5,7 +5,7 @@ import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from '../auth/auth.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserRepository } from './repositories/user.repository';
-import { Role } from '../role/entities/role.entity';
+import { Role } from '../roles/entities/role.entity';
 import { EmailModule } from '../email/email.module';
 
 @Module({

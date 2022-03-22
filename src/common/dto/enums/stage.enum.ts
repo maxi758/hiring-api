@@ -1,4 +1,5 @@
 export enum StagesState {
+  ON_HOLD = 'on-hold',
   START = 'start',
   WEEK_1 = 'week-1',
   WEEK_2 = 'week-2',

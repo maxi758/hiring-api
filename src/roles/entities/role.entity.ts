@@ -21,7 +21,7 @@ export class Role {
 
   @UpdateDateColumn({ nullable: true })
   update: Date;
-  
+
   @OneToMany(() => User, (user) => user.role)
   users: User[];
 }

@@ -14,17 +14,17 @@ export class SeedService implements OnModuleInit {
 
   async onModuleInit(): Promise<void> {
     const users = await this.userRepository.find({
-      where: { email: In(seedUsers.map(u => u.email)) },
+      where: { email: In(seedUsers.map((u) => u.email)) },
     });
 
     if (!(users.length === 2)) {
       const roles = await this.roleRepository.seedRoles(Roles);
 
       this.userRepository.save(
-        seedUsers.map(user => ({
+        seedUsers.map((user) => ({
           ...user,
           password: user.password,
-          role: roles.filter(role => role.name === user.role)[0],
+          role: roles.filter((role) => role.name === user.role)[0],
         })),
       );
     }

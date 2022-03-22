@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -9,7 +10,8 @@ import { Company } from './entities/company.entity';
 export class CompaniesService {
   constructor(
     @InjectRepository(Company)
-    private companyRepository :Repository<Company>){}
+    private companyRepository: Repository<Company>,
+  ) {}
   create(createCompanyDto: CreateCompanyDto) {
     return this.companyRepository.save(createCompanyDto);
   }

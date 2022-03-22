@@ -75,7 +75,10 @@ export class UsersController {
     @Req() request: Request,
     @Body() changePasswordDto: ChangePasswordDto,
   ) {
-    return this.usersService.changePassword(changePasswordDto.password, request);
+    return this.usersService.changePassword(
+      changePasswordDto.password,
+      request,
+    );
   }
 
   @Post('password/reset')

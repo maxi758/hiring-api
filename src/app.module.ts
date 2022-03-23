@@ -11,7 +11,6 @@ import { getConnectionOptions } from 'typeorm';
 import { UsersModule } from './users/users.module';
 import { EmailModule } from './email/email.module';
 import { SeedModule } from './seed/seed.module';
-import { OpeningModule } from './opening/opening.module';
 import { OpeningsModule } from './openings/openings.module';
 import { TagsModule } from './tags/tags.module';
 
@@ -30,7 +29,6 @@ import { TagsModule } from './tags/tags.module';
     CompaniesModule,
     UsersModule,
     EmailModule,
-    OpeningModule,
     OpeningsModule,
     TagsModule,
   ],

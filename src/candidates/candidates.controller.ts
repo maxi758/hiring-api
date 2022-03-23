@@ -6,19 +6,24 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
+  ParseEnumPipe,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiQuery, ApiTags } from '@nestjs/swagger';
+import { StagesState } from '../common/dto/enums/stage.enum';
 import { CandidatesService } from './candidates.service';
 import { CreateCandidateDto } from './dto/create-candidate.dto';
 import { UpdateCandidateDto } from './dto/update-candidate.dto';
+import { Candidate } from './entities/candidate.entity';
 
 @ApiTags('candidates')
 @Controller('candidates')
 export class CandidatesController {
   constructor(private readonly candidatesService: CandidatesService) {}
 
+  @ApiBody({ type: CreateCandidateDto })
   @Post()
-  create(@Body() createCandidateDto: CreateCandidateDto) {
+  create(@Body() createCandidateDto: CreateCandidateDto): Promise<Candidate> {
     return this.candidatesService.create(createCandidateDto);
   }
 
@@ -38,6 +43,15 @@ export class CandidatesController {
     @Body() updateCandidateDto: UpdateCandidateDto,
   ) {
     return this.candidatesService.update(+id, updateCandidateDto);
+  }
+
+  @Patch(':id/role')
+  @ApiQuery({ name: 'state', enum: StagesState })
+  changeStatus(
+    @Param('id') id: number,
+    @Query('state', new ParseEnumPipe(StagesState)) change: StagesState,
+  ) {
+    return this.candidatesService.changeStatus(id, change);
   }
 
   @Delete(':id')

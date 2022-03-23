@@ -10,13 +10,13 @@ import { Candidate } from './entities/candidate.entity';
 export class CandidatesService {
   constructor(
     @InjectRepository(Candidate)
-    private candidateRepository: Repository<Candidate>
+    private candidateRepository: Repository<Candidate>,
   ) {}
   create(createCandidateDto: CreateCandidateDto) {
     return this.candidateRepository.save(createCandidateDto);
   }
 
-  findAll(): Promise<Candidate[]>{
+  findAll(): Promise<Candidate[]> {
     return this.candidateRepository.find();
   }
 
@@ -42,6 +42,11 @@ export class CandidatesService {
     if (!candidateToUpdate) throw new NotFoundException('candidate not found');
     candidateToUpdate.status = status;
     return this.candidateRepository.save(candidateToUpdate);
+  }
+  async getStatus(id: number): Promise<StagesState> {
+    const candidate = await this.findOne(id);
+    if (!candidate) throw new NotFoundException('candidate not found');
+    return candidate.status;
   }
   remove(id: number) {
     return this.candidateRepository.delete(id);

@@ -38,6 +38,11 @@ export class CandidatesController {
     return this.candidatesService.findOne(id);
   }
 
+  @Get(':id/status')
+  getStatus(@Param('id', ParseIntPipe) id: number) {
+    return this.candidatesService.getStatus(id);
+  }
+
   @Patch(':id')
   update(
     @Param('id', ParseIntPipe) id: number,
@@ -46,7 +51,7 @@ export class CandidatesController {
     return this.candidatesService.update(id, updateCandidateDto);
   }
 
-  @Patch(':id/role')
+  @Patch(':id/status')
   @ApiQuery({ name: 'state', enum: StagesState })
   changeStatus(
     @Param('id', ParseIntPipe) id: number,

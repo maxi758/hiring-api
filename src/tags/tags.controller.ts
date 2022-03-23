@@ -28,7 +28,7 @@ export class TagsController {
 
   @Get(':id')
   findOne(@Param('id', ParseIntPipe) id: number) {
-    return this.tagsService.findOne(+id);
+    return this.tagsService.findOne(id);
   }
 
   @Patch(':id')

@@ -11,6 +11,8 @@ import { getConnectionOptions } from 'typeorm';
 import { UsersModule } from './users/users.module';
 import { EmailModule } from './email/email.module';
 import { SeedModule } from './seed/seed.module';
+import { OpeningModule } from './opening/opening.module';
+import { OpeningsModule } from './openings/openings.module';
 
 @Module({
   imports: [
@@ -27,6 +29,8 @@ import { SeedModule } from './seed/seed.module';
     CompaniesModule,
     UsersModule,
     EmailModule,
+    OpeningModule,
+    OpeningsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

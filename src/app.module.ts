@@ -13,6 +13,7 @@ import { EmailModule } from './email/email.module';
 import { SeedModule } from './seed/seed.module';
 import { OpeningModule } from './opening/opening.module';
 import { OpeningsModule } from './openings/openings.module';
+import { TagsModule } from './tags/tags.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { OpeningsModule } from './openings/openings.module';
     EmailModule,
     OpeningModule,
     OpeningsModule,
+    TagsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

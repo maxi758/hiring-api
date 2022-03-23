@@ -11,8 +11,8 @@ import { getConnectionOptions } from 'typeorm';
 import { UsersModule } from './users/users.module';
 import { EmailModule } from './email/email.module';
 import { SeedModule } from './seed/seed.module';
-import { OpeningsModule } from './openings/openings.module';
 import { TagsModule } from './tags/tags.module';
+import { PositionsModule } from './positions/positions.module';
 
 @Module({
   imports: [
@@ -29,8 +29,8 @@ import { TagsModule } from './tags/tags.module';
     CompaniesModule,
     UsersModule,
     EmailModule,
-    OpeningsModule,
     TagsModule,
+    PositionsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -8,6 +8,7 @@ import {
   Delete,
   Query,
   ParseEnumPipe,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { ApiBody, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { StagesState } from '../common/dto/enums/stage.enum';
@@ -33,29 +34,29 @@ export class CandidatesController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.candidatesService.findOne(+id);
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.candidatesService.findOne(id);
   }
 
   @Patch(':id')
   update(
-    @Param('id') id: string,
+    @Param('id', ParseIntPipe) id: number,
     @Body() updateCandidateDto: UpdateCandidateDto,
   ) {
-    return this.candidatesService.update(+id, updateCandidateDto);
+    return this.candidatesService.update(id, updateCandidateDto);
   }
 
   @Patch(':id/role')
   @ApiQuery({ name: 'state', enum: StagesState })
   changeStatus(
-    @Param('id') id: number,
+    @Param('id', ParseIntPipe) id: number,
     @Query('state', new ParseEnumPipe(StagesState)) change: StagesState,
   ) {
     return this.candidatesService.changeStatus(id, change);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.candidatesService.remove(+id);
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.candidatesService.remove(id);
   }
 }

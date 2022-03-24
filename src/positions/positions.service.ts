@@ -1,11 +1,23 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { CompaniesService } from '../companies/companies.service';
+import { Company } from '../companies/entities/company.entity';
 import { CreatePositionDto } from './dto/create-position.dto';
 import { UpdatePositionDto } from './dto/update-position.dto';
+import { Position } from './entities/position.entity';
 
 @Injectable()
 export class PositionsService {
-  create(createPositionDto: CreatePositionDto) {
-    return 'This action adds a new position';
+  constructor(
+    @InjectRepository(Position)
+    private positionRepository: Repository<Position>,
+    private companiesService: CompaniesService,
+  ) {}
+  async create(createPositionDto: CreatePositionDto, companyId: number) {
+    const company = await this.companiesService.findOne(companyId);
+    if (!company) throw new NotFoundException('resource not found');
+    return this.positionRepository.save({ ...createPositionDto, company });
   }
 
   findAll() {

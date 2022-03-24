@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Company } from '../../companies/entities/company.entity';
 
 @Entity()
 export class Position {
@@ -16,4 +17,7 @@ export class Position {
 
   @Column()
   description: string;
+
+  @ManyToOne(() => Company)
+  company: Company;
 }

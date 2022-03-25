@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { StagesState } from '../common/dto/enums/stage.enum';
@@ -16,6 +20,17 @@ export class CandidatesService {
   ) {}
   async create(createCandidateDto: CreateCandidateDto, positionId: number) {
     const position = await this.positionsService.findOne(positionId);
+    const searchCandidate = await this.candidateRepository.findOne({
+      where: {
+        email: createCandidateDto.email,
+      },
+      relations: ['position'],
+    });
+
+    if (searchCandidate)
+      if (searchCandidate.position.id === positionId)
+        throw new BadRequestException('Already applied for this position');
+
     if (!position) throw new NotFoundException('position not found');
     return this.candidateRepository.save({ ...createCandidateDto, position });
   }

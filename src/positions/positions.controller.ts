@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { PositionsService } from './positions.service';
 import { CreatePositionDto } from './dto/create-position.dto';
@@ -17,32 +18,32 @@ export class PositionsController {
 
   @Post()
   create(
-    @Param('companyId') companyId: number,
+    @Param('companyId', ParseIntPipe) companyId: number,
     @Body() createPositionDto: CreatePositionDto,
   ) {
     return this.positionsService.create(createPositionDto, companyId);
   }
 
   @Get()
-  findAll(@Param('companyId') companyId: number) {
+  findAll(@Param('companyId', ParseIntPipe) companyId: number) {
     return this.positionsService.findAll(companyId);
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.positionsService.findOne(+id);
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.positionsService.findOne(id);
   }
 
   @Patch(':id')
   update(
-    @Param('id') id: string,
+    @Param('id', ParseIntPipe) id: number,
     @Body() updatePositionDto: UpdatePositionDto,
   ) {
-    return this.positionsService.update(+id, updatePositionDto);
+    return this.positionsService.update(id, updatePositionDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.positionsService.remove(+id);
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.positionsService.remove(id);
   }
 }

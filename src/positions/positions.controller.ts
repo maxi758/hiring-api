@@ -24,8 +24,8 @@ export class PositionsController {
   }
 
   @Get()
-  findAll() {
-    return this.positionsService.findAll();
+  findAll(@Param('companyId') companyId: number) {
+    return this.positionsService.findAll(companyId);
   }
 
   @Get(':id')

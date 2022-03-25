@@ -20,19 +20,23 @@ export class PositionsService {
     return this.positionRepository.save({ ...createPositionDto, company });
   }
 
-  findAll() {
-    return `This action returns all positions`;
+  findAll(companyId: number): Promise<Position[]> {
+    return this.positionRepository.find({ company: { id: companyId } });
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} position`;
+    const position = this.positionRepository.findOne(id);
+    if (!position) throw new NotFoundException('position not found');
+    return position;
   }
 
   update(id: number, updatePositionDto: UpdatePositionDto) {
-    return `This action updates a #${id} position`;
+    const position = this.positionRepository.findOne(id);
+    if (!position) throw new NotFoundException('position not found');
+    return this.positionRepository.save({ ...position, ...updatePositionDto });
   }
 
   remove(id: number) {
-    return `This action removes a #${id} position`;
+    return this.positionRepository.delete(id);
   }
 }

@@ -23,9 +23,12 @@ export class CandidatesController {
   constructor(private readonly candidatesService: CandidatesService) {}
 
   @ApiBody({ type: CreateCandidateDto })
-  @Post()
-  create(@Body() createCandidateDto: CreateCandidateDto): Promise<Candidate> {
-    return this.candidatesService.create(createCandidateDto);
+  @Post(':positionId/apply')
+  create(
+    @Param('positionId', ParseIntPipe) positionId: number,
+    @Body() createCandidateDto: CreateCandidateDto,
+  ): Promise<Candidate> {
+    return this.candidatesService.create(createCandidateDto, positionId);
   }
 
   @Get()

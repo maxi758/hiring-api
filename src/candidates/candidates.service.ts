@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { StagesState } from '../common/dto/enums/stage.enum';
+import { PositionsService } from '../positions/positions.service';
 import { CreateCandidateDto } from './dto/create-candidate.dto';
 import { UpdateCandidateDto } from './dto/update-candidate.dto';
 import { Candidate } from './entities/candidate.entity';
@@ -11,9 +12,12 @@ export class CandidatesService {
   constructor(
     @InjectRepository(Candidate)
     private candidateRepository: Repository<Candidate>,
+    private positionsService: PositionsService,
   ) {}
-  create(createCandidateDto: CreateCandidateDto) {
-    return this.candidateRepository.save(createCandidateDto);
+  async create(createCandidateDto: CreateCandidateDto, positionId: number) {
+    const position = await this.positionsService.findOne(positionId);
+    if (!position) throw new NotFoundException('position not found');
+    return this.candidateRepository.save({ ...createCandidateDto, position });
   }
 
   findAll(): Promise<Candidate[]> {

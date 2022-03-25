@@ -9,5 +9,6 @@ import { Position } from './entities/position.entity';
   imports: [TypeOrmModule.forFeature([Position]), CompaniesModule],
   controllers: [PositionsController],
   providers: [PositionsService],
+  exports: [PositionsService],
 })
 export class PositionsModule {}

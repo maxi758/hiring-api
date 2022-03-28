@@ -7,7 +7,6 @@ import {
   Param,
   Delete,
   ParseIntPipe,
-  Res,
 } from '@nestjs/common';
 import { PositionsService } from './positions.service';
 import { CreatePositionDto } from './dto/create-position.dto';
@@ -36,15 +35,6 @@ export class PositionsController {
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.positionsService.findOne(id);
   }
-
-  /*@Get(':id/apply')
-  redirect(
-    @Res() res,
-    @Param('id', ParseIntPipe) id: number,
-    @Param('companyId', ParseIntPipe) companyId: number,
-  ) {
-    res.redirect('/candidates/apply');
-  }*/
 
   @Patch(':id')
   update(

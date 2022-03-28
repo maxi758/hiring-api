@@ -12,7 +12,9 @@ import {
 import { PositionsService } from './positions.service';
 import { CreatePositionDto } from './dto/create-position.dto';
 import { UpdatePositionDto } from './dto/update-position.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('positions')
 @Controller('companies/:companyId/positions')
 export class PositionsController {
   constructor(private readonly positionsService: PositionsService) {}

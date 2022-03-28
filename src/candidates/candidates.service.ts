@@ -39,8 +39,10 @@ export class CandidatesService {
     return this.candidateRepository.find();
   }
 
-  findOne(id: number): Promise<Candidate> {
-    const candidate = this.candidateRepository.findOne(id);
+  async findOne(id: number): Promise<Candidate> {
+    const candidate = await this.candidateRepository.findOne(id, {
+      relations: ['position'],
+    });
     if (!candidate) throw new NotFoundException('candidate not found');
     return candidate;
   }

@@ -28,11 +28,14 @@ export class CandidatesService {
     });
 
     if (searchCandidate)
-      if (searchCandidate.position.id === positionId)
+      if (searchCandidate.positions.find((p) => p.id === positionId))
         throw new BadRequestException('Already applied for this position');
 
     if (!position) throw new NotFoundException('position not found');
-    return this.candidateRepository.save({ ...createCandidateDto, position });
+    return this.candidateRepository.save({
+      ...createCandidateDto,
+      positions: [position],
+    });
   }
 
   findAll(): Promise<Candidate[]> {

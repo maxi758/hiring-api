@@ -4,7 +4,6 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { CandidatesModule } from './candidates/candidates.module';
-import { RecruitersModule } from './recruiters/recruiters.module';
 import { CompaniesModule } from './companies/companies.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { getConnectionOptions } from 'typeorm';
@@ -25,7 +24,6 @@ import { PositionsModule } from './positions/positions.module';
     }),
     AuthModule,
     CandidatesModule,
-    RecruitersModule,
     CompaniesModule,
     UsersModule,
     EmailModule,

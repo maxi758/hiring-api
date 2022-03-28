@@ -1,4 +1,11 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { StagesState } from '../../common/dto/enums/stage.enum';
 import { Position } from '../../positions/entities/position.entity';
 
@@ -18,6 +25,8 @@ export class Candidate {
     default: StagesState.ON_HOLD,
   })
   status: StagesState;
-  @ManyToOne(() => Position)
-  position: Position;
+
+  @ManyToMany(() => Position)
+  @JoinTable()
+  positions: Position[];
 }

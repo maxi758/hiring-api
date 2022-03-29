@@ -1,0 +1,32 @@
+version: '3.7'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - NODE_ENV=development
+    environment:
+      - PORT=3000
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=root      
+    ports:
+      - 3000:3000
+    depends_on:
+      - postgres
+    links:
+      - postgres
+    volumes:
+      - .:/usr/src/app
+    command: npm run start:dev
+
+  postgres:
+    image: postgres:alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=movie_store

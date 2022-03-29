@@ -8,17 +8,13 @@ export class EmailService {
     const key = this.configService.get<string>('SENDGRID_API_KEY');
     sendgrid.setApiKey(key);
   }
-  async send(
-    email: string,
-    //transaction: ,
-  ): Promise<void> {
+  async send(email: string): Promise<void> {
     try {
       const msg = {
         personalizations: [{ to: [{ email }] }],
         from: 'maxi758@gmail.com',
-        subject: 'transaction details',
+        subject: 'Job Offer',
         templateId: this.configService.get<string>('TEMPLATE_ID'),
-        //dynamicTemplateData: { ...transaction },
       };
 
       await sendgrid.send(msg);

@@ -47,7 +47,7 @@ export class UsersController {
 
   @ApiBearerAuth()
   @Patch('/:id')
-  @Roles('admin')
+  @Roles('api-admin', 'company-admin')
   @UseGuards(AuthGuard('jwt'), ValidationGuard, RoleGuard)
   updateUser(
     @Body() updateUserDto: UpdateUserDto,
@@ -58,7 +58,7 @@ export class UsersController {
 
   @ApiBearerAuth()
   @Patch('/:id/role')
-  @Roles('api-admin')
+  @Roles('api-admin', 'company-admin')
   @UseGuards(AuthGuard('jwt'), ValidationGuard, RoleGuard)
   changeRole(
     @Body() changeRoleDto: ChangeRoleDto,
@@ -95,7 +95,7 @@ export class UsersController {
 
   @ApiBearerAuth()
   @Delete('/:id')
-  @Roles('admin')
+  @Roles('api-admin', 'company-admin')
   @UseGuards(AuthGuard('jwt'), ValidationGuard, RoleGuard)
   deleteUser(@Param('id', ParseIntPipe) id: number) {
     this.usersService.removeUser(id);

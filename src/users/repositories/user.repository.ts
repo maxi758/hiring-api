@@ -58,7 +58,7 @@ export class UserRepository extends Repository<User> {
   async removeUser(userId: number): Promise<DeleteResult> {
     return this.delete(userId);
   }
-  async findOneUser(username: string): Promise<User | undefined> {
-    return this.findOne({ username: username });
+  async findOneUserBy(criteria: any): Promise<User | undefined> {
+    return this.findOne(criteria);
   }
 }

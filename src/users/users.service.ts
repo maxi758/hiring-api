@@ -73,8 +73,8 @@ export class UsersService {
     return this.userRepository.removeUser(userId);
   }
 
-  async findOneUser(username: string): Promise<User | undefined> {
-    return this.userRepository.findOneUser(username);
+  async findOneUser(criteria: any): Promise<User | undefined> {
+    return this.userRepository.findOneUserBy(criteria);
   }
 
   async changeRole(userId: number, roleName: string): Promise<User> {

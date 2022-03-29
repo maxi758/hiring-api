@@ -12,6 +12,7 @@ import { EmailModule } from './email/email.module';
 import { SeedModule } from './seed/seed.module';
 import { TagsModule } from './tags/tags.module';
 import { PositionsModule } from './positions/positions.module';
+import { GoogleStrategy } from './auth/google.strategy';
 
 @Module({
   imports: [

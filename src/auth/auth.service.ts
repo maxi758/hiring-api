@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   forwardRef,
   Inject,
   Injectable,
@@ -14,7 +15,7 @@ import { UserPayload } from './dto/user-payload.dto';
 export class AuthService {
   constructor(
     @Inject(forwardRef(() => UsersService))
-    private userService: UsersService,
+    private usersService: UsersService,
     private jwtService: JwtService,
   ) {}
   /**
@@ -25,7 +26,9 @@ export class AuthService {
    * @memberof AuthService
    */
   async validateUser(userDto: UserDto): Promise<UserPayload> {
-    const userInDb = await this.userService.findOneUser(userDto.username);
+    const userInDb = await this.usersService.findOneUser({
+      where: [{ username: userDto.username }],
+    });
     if (userInDb && userDto.password === userInDb.password) {
       const { password, ...result } = userInDb;
       return result;
@@ -82,5 +85,16 @@ export class AuthService {
     }
 
     return this.jwtService.verify(bearerToken);
+  }
+
+  async signInWithGoogle(data) {
+    if (!data.user)
+      throw new BadRequestException('user with this email not found');
+
+    const user = await this.usersService.findOneUser({
+      where: [{ email: data.user.email }],
+    });
+    if (!user) throw new BadRequestException('user with this email not found');
+    return this.login({ username: user.username, password: user.password });
   }
 }

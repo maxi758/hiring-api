@@ -29,4 +29,4 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=root
-      - POSTGRES_DB=movie_store
+      - POSTGRES_DB=hiring_manager

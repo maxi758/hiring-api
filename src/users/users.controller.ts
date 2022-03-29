@@ -5,6 +5,7 @@ import {
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   Patch,
   Post,
   Req,
@@ -15,14 +16,14 @@ import { Request } from 'express';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UsersService } from './users.service';
 import { ValidationGuard } from '../auth//guards/validate.guard';
-import { ValidateIdDto } from '../common/dto/validate-id';
-//import { ChangeRoleDto } from './dto/change-role.dto';
 import { Roles } from '../auth/decorators/role.decorator';
 import { AuthGuard } from '@nestjs/passport';
 import { RoleGuard } from '../auth/guards/role.guard';
-import { ApiTags, ApiBearerAuth, ApiParam } from '@nestjs/swagger';
+import { ApiTags, ApiBearerAuth } from '@nestjs/swagger';
 import { ResetPasswordDto } from './dto/reset-password.dto';
 import { ChangePasswordDto } from './dto/change-password.dto';
+import { ChangeRoleDto } from './dto/change-role.dto';
+import { CreateUserDto } from './dto/create-user.dto';
 
 @ApiTags('users')
 @Controller('users')
@@ -40,34 +41,40 @@ export class UsersController {
   @ApiBearerAuth()
   @Get('/:id')
   @UseGuards(ValidationGuard)
-  @ApiParam({ name: 'id' })
-  getUserById(@Param() param: ValidateIdDto) {
-    return this.usersService.getUserById(param.id);
+  getUserById(@Param('id', ParseIntPipe) id: number) {
+    return this.usersService.getUserById(id);
   }
 
   @ApiBearerAuth()
   @Patch('/:id')
-  @UseGuards(ValidationGuard)
-  @ApiParam({ name: 'id' })
-  updateUser(
-    @Body() updateUserDto: UpdateUserDto,
-    @Param() param: ValidateIdDto,
-  ) {
-    return this.usersService.updateUser(param.id, updateUserDto);
-  }
-
-  /*@ApiBearerAuth()
-  @Patch('/:id/role')
   @Roles('admin')
   @UseGuards(AuthGuard('jwt'), ValidationGuard, RoleGuard)
-  @ApiParam({ name: 'id' })
+  updateUser(
+    @Body() updateUserDto: UpdateUserDto,
+    @Param('id', ParseIntPipe) id: number,
+  ) {
+    return this.usersService.updateUser(id, updateUserDto);
+  }
+
+  @ApiBearerAuth()
+  @Patch('/:id/role')
+  @Roles('api-admin')
+  @UseGuards(AuthGuard('jwt'), ValidationGuard, RoleGuard)
   changeRole(
     @Body() changeRoleDto: ChangeRoleDto,
-    @Param() param: ValidateIdDto,
+    @Param('id', ParseIntPipe) id: number,
   ) {
-    return this.usersService.changeRole(param.id, changeRoleDto.role);
+    return this.usersService.changeRole(id, changeRoleDto.role);
   }
-*/
+
+  @ApiBearerAuth()
+  @Post('/admin')
+  @Roles('api-admin')
+  @UseGuards(AuthGuard('jwt'), ValidationGuard, RoleGuard)
+  createAdmin(@Body() createUserDto: CreateUserDto) {
+    return this.usersService.createAdmin(createUserDto);
+  }
+
   @ApiBearerAuth()
   @Patch('/password/change')
   @UseGuards(AuthGuard('jwt'), ValidationGuard)
@@ -90,8 +97,7 @@ export class UsersController {
   @Delete('/:id')
   @Roles('admin')
   @UseGuards(AuthGuard('jwt'), ValidationGuard, RoleGuard)
-  @ApiParam({ name: 'id' })
-  deleteUser(@Param() param: ValidateIdDto) {
-    this.usersService.removeUser(param.id);
+  deleteUser(@Param('id', ParseIntPipe) id: number) {
+    this.usersService.removeUser(id);
   }
 }

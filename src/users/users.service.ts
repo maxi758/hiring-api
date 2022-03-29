@@ -25,7 +25,7 @@ export class UsersService {
     private userRepository: UserRepository,
     @Inject(forwardRef(() => AuthService))
     private authService: AuthService,
-    //private emailService: EmailService,
+    private emailService: EmailService,
   ) {}
 
   async getUsers(): Promise<User[]> {

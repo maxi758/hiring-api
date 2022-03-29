@@ -6,6 +6,7 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { StagesState } from '../common/dto/enums/stage.enum';
+import { EmailService } from '../email/email.service';
 import { PositionsService } from '../positions/positions.service';
 import { CreateCandidateDto } from './dto/create-candidate.dto';
 import { UpdateCandidateDto } from './dto/update-candidate.dto';
@@ -17,6 +18,7 @@ export class CandidatesService {
     @InjectRepository(Candidate)
     private candidateRepository: Repository<Candidate>,
     private positionsService: PositionsService,
+    private emailService: EmailService,
   ) {}
   async create(createCandidateDto: CreateCandidateDto, positionId: number) {
     const position = await this.positionsService.findOne(positionId);
@@ -65,6 +67,8 @@ export class CandidatesService {
     const candidateToUpdate = await this.findOne(id);
     if (!candidateToUpdate) throw new NotFoundException('candidate not found');
     candidateToUpdate.status = status;
+    if (status === StagesState.ACCEPTED)
+      this.emailService.send(candidateToUpdate.email);
     return this.candidateRepository.save(candidateToUpdate);
   }
   async getStatus(id: number): Promise<StagesState> {

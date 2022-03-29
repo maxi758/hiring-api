@@ -26,7 +26,7 @@ export class CandidatesService {
       where: {
         email: createCandidateDto.email,
       },
-      relations: ['position'],
+      relations: ['positions'],
     });
 
     if (searchCandidate)
@@ -46,7 +46,7 @@ export class CandidatesService {
 
   async findOne(id: number): Promise<Candidate> {
     const candidate = await this.candidateRepository.findOne(id, {
-      relations: ['position'],
+      relations: ['positions'],
     });
     if (!candidate) throw new NotFoundException('candidate not found');
     return candidate;

@@ -10,7 +10,6 @@ services:
     environment:
       - PORT=3000
       - POSTGRES_HOST=postgres
-      - POSTGRES_PORT=5432
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=root      
     ports:
@@ -22,11 +21,17 @@ services:
     volumes:
       - .:/usr/src/app
     command: npm run start:dev
+    env_file:
+      - docker.env
 
   postgres:
-    image: postgres:alpine
+    image: postgres:13-alpine
     restart: always
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=root
       - POSTGRES_DB=hiring_manager
+    ports:
+      - "5432:5432"
+    env_file:
+      - docker.env

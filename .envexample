@@ -1,0 +1,10 @@
+DB_HOST=localhost in .env
+DB_HOST=db in docker.env
+DB_PORT=5433 in .env
+DB_PORT=5432 in docker.env
+DB_NAME=hiring_manager
+DB_USER=postgres
+DB_PASS=root
+JWT_SECRET=your JWT secret
+SENDGRID_API_KEY=your Sendgrid API key
+TEMPLATE_ID=Sendgrid template Id for aceptance email

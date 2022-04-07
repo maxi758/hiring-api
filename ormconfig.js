@@ -1,7 +1,11 @@
+require('dotenv/config');
+
+const { DB_PORT, DB_HOST } = process.env;
 module.exports = {
   type: 'postgres',
-  host: 'localhost',
-  port: 5433,
+  host: `${DB_HOST}`,
+  port: `${DB_PORT}`,
+  url: process.env.DATABASE_URL,
   username: 'postgres',
   password: 'root',
   database: 'hiring_manager',

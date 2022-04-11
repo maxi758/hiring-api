@@ -29,9 +29,8 @@ export class CandidatesService {
       relations: ['positions'],
     });
 
-    if (searchCandidate)
-      if (searchCandidate.positions.find((p) => p.id === positionId))
-        throw new BadRequestException('Already applied for this position');
+    if (searchCandidate.positions?.find((p) => p.id === positionId))
+      throw new BadRequestException('Already applied for this position');
 
     if (!position) throw new NotFoundException('position not found');
     return this.candidateRepository.save({

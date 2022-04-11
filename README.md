@@ -22,52 +22,38 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
+## Pre-requisites
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+1. Docker and docker-compose must be installed on your machine
+2. This API uses Sendgrid API v3 for sending email, so you must provide your Sendgrid API key
+3. This API send emails when a candidate status is set to acepted by a recruiter
+4. Check docker-compose.yml for get an example of the env vars of postgres image, so your .env must fullfil the same values
 
-## Installation
+## First steps
 
-```bash
-$ npm install
-```
+1. watch .envexample for get a guide of how provide your DB credentials, a secret pass for JsonWebToken and others env variables
+2. run `docker-compose up`
 
-## Running the app
+## Usage
 
-```bash
-# development
-$ npm run start
+- endpoint for common login is auth/login
+- payload for login is {email:string,password:string}
+- endpoint for login using google auth is auth/google
+- go to localhost:3000/api to see API documentation with swagger
 
-# watch mode
-$ npm run start:dev
+## Environment variables required
 
-# production mode
-$ npm run start:prod
-```
+You will need a .env and a docker.env files, check .envexample for more information
 
-## Test
+| Variable                  | Description                                                |
+| :------------------------ | :--------------------------------------------------------- |
+| JWT_SECRET                | Secret pass used to sign and verify JWT                    |
+| DB_PORT                   | Port of the dockerized PostegreSql database                |
+| DB_HOST                   | Host of the database                                       |
+| DB_USER                   | User for access database                                   |
+| DB_PASS                   | Password for user access                                   |
+| DB_NAME                   | Name of the database                                       |
+| SENDGRID_API_KEY          | Key for the Sendgrid email API                             |
+| TEMPLATE_ID               | Template id of aceptance email                             |
 
-```bash
-# unit tests
-$ npm run test
 
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).

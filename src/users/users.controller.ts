@@ -1,5 +1,6 @@
 import {
   Body,
+  CacheInterceptor,
   ClassSerializerInterceptor,
   Controller,
   Delete,
@@ -31,9 +32,10 @@ import { CreateUserDto } from './dto/create-user.dto';
 export class UsersController {
   constructor(private usersService: UsersService) {}
 
-  @ApiBearerAuth()
+  //@ApiBearerAuth()
+  @UseInterceptors(CacheInterceptor)
   @Get('/')
-  @UseGuards(ValidationGuard)
+  //@UseGuards(ValidationGuard)
   getAll() {
     return this.usersService.getUsers();
   }

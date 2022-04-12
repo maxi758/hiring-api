@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { CacheModule, Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
@@ -30,6 +30,11 @@ import { GoogleStrategy } from './auth/google.strategy';
     EmailModule,
     TagsModule,
     PositionsModule,
+    CacheModule.register({
+      isGlobal: true,
+      ttl: 5, // seconds
+      max: 10, // maximum number of items in cache
+    }),
   ],
   controllers: [AppController],
   providers: [AppService],

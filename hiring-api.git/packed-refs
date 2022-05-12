@@ -1,7 +1,0 @@
-# pack-refs with: peeled fully-peeled sorted 
-c748b97e97edc841a82328f294330a52b3e19e01 refs/heads/development
-9fdb910bfbb106a7093b156535fd07dfa5738ed8 refs/heads/docker-config
-13c48e09b3b109772828d59e6626c8e16425109d refs/heads/feature_caching
-d73876f887456fb5220ba60ec0290aafb812a936 refs/heads/main
-9fdb910bfbb106a7093b156535fd07dfa5738ed8 refs/merge-requests/1/head
-153f3822ea71045a8e8a3845c09d1f3bfc7c6426 refs/merge-requests/1/merge

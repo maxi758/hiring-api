@@ -7,12 +7,13 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserRepository } from './repositories/user.repository';
 import { Role } from '../roles/entities/role.entity';
 import { EmailModule } from '../email/email.module';
+import { User } from './entities/user.entity';
 
 @Module({
   imports: [
     ConfigModule,
     forwardRef(() => AuthModule),
-    TypeOrmModule.forFeature([UserRepository, Role]),
+    TypeOrmModule.forFeature([User, Role]),
     EmailModule,
   ],
   providers: [UsersService],

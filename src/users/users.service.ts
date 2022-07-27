@@ -15,13 +15,14 @@ import { Request } from 'express';
 import { UserRepository } from './repositories/user.repository';
 import { AuthService } from '../auth/auth.service';
 import { EmailService } from '../email/email.service';
+import { RoleRepository } from '../roles/repositories/role.repository';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(Role)
-    private roleRepository: Repository<Role>,
-    @InjectRepository(UserRepository)
+    private roleRepository: RoleRepository,
+    @InjectRepository(User)
     private userRepository: UserRepository,
     @Inject(forwardRef(() => AuthService))
     private authService: AuthService,
@@ -37,12 +38,14 @@ export class UsersService {
   }
 
   async createUser(createUserDto: CreateUserDto): Promise<User> {
-    const role = await this.roleRepository.findOne({ name: 'recruiter' });
+    const role = await this.roleRepository.findOneRole({
+      where: { name: 'recruiter' },
+    });
     return this.userRepository.createUser(createUserDto, role);
   }
 
   async createAdmin(createUserDto: CreateUserDto): Promise<User> {
-    const role = await this.roleRepository.findOne({ name: 'admin' });
+    const role = await this.roleRepository.findOneRole({ name: 'admin' });
     return this.userRepository.createUser(createUserDto, role);
   }
 
@@ -62,7 +65,7 @@ export class UsersService {
   }
 
   async resetPassword(email: string) {
-    const user = await this.userRepository.findOne({ email: email }); //think in a jtw approch later
+    const user = await this.userRepository.findOneUserBy({ email: email }); //think in a jtw approch later
     const provisionalPassword = randomStringGenerator();
     if (!user)
       throw new BadRequestException(`There is no user with email: ${email}`);
@@ -80,8 +83,8 @@ export class UsersService {
   async changeRole(userId: number, roleName: string): Promise<User> {
     const user = await this.userRepository.getUserById(userId);
 
-    const role = await this.roleRepository.findOne({ name: roleName });
+    const role = await this.roleRepository.findOneRole({ name: roleName });
 
-    return this.userRepository.save({ ...user, role });
+    return this.userRepository.saveUser({ ...user, role });
   }
 }

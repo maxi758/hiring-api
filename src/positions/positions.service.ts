@@ -20,17 +20,19 @@ export class PositionsService {
   }
 
   findAll(companyId: number): Promise<Position[]> {
-    return this.positionRepository.find({ company: { id: companyId } });
+    return this.positionRepository.find({
+      where: { company: { id: companyId } },
+    });
   }
 
   findOne(id: number) {
-    const position = this.positionRepository.findOne(id);
+    const position = this.positionRepository.findOne({ where: { id } });
     if (!position) throw new NotFoundException('position not found');
     return position;
   }
 
   update(id: number, updatePositionDto: UpdatePositionDto) {
-    const position = this.positionRepository.findOne(id);
+    const position = this.positionRepository.findOne({ where: { id } });
     if (!position) throw new NotFoundException('position not found');
     return this.positionRepository.save({ ...position, ...updatePositionDto });
   }

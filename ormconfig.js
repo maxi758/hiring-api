@@ -14,8 +14,10 @@ module.exports = {
   migrations: ['dist/migration/**/*{.ts,.js}'],
   subscribers: ['src/subscriber/**/*.ts'],
   cli: {
-    entitiesDir: 'src/entities',
+    entitiesDir: 'src/**/entities',
     migrationsDir: 'src/migration',
     subscribersDir: 'src/subscriber',
+    seeds: ['src/database/seeds/**/*seed{.ts,.js}'],
+    factories: ['src/database/factories/**/*factory{.ts,.js}'],
   },
 };

@@ -7,8 +7,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtStrategy } from './jwt.strategy';
 import { AuthController } from './auth.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UserRepository } from '../users/repositories/user.repository';
 import { GoogleStrategy } from './google.strategy';
+import { User } from '../users/entities/user.entity';
 
 @Module({
   imports: [
@@ -22,7 +22,7 @@ import { GoogleStrategy } from './google.strategy';
       }),
       inject: [ConfigService],
     }),
-    TypeOrmModule.forFeature([UserRepository]),
+    TypeOrmModule.forFeature([User]),
   ],
   controllers: [AuthController],
   providers: [AuthService, JwtStrategy, GoogleStrategy],

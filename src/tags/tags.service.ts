@@ -21,7 +21,11 @@ export class TagsService {
   }
 
   findOne(id: number) {
-    const tag = this.tagRepository.findOne(id);
+    const tag = this.tagRepository.findOne({
+      where: {
+        id,
+      },
+    });
     if (!tag) throw new NotFoundException('tag not found');
     return tag;
   }

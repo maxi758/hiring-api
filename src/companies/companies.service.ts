@@ -21,13 +21,13 @@ export class CompaniesService {
   }
 
   async findOne(id: number): Promise<Company> {
-    const company = await this.companyRepository.findOne(id);
+    const company = await this.companyRepository.findOne({where: {id}});
     if (!company) throw new NotFoundException('company not found');
     return company;
   }
 
   async update(id: number, updateCompanyDto: UpdateCompanyDto): Promise<Company> {
-    const companyToUpdate = await this.companyRepository.findOne(id);
+    const companyToUpdate = await this.companyRepository.findOne({where:{id}});
     if (!companyToUpdate) throw new NotFoundException('company not found');
     return this.companyRepository.save({...companyToUpdate, ...updateCompanyDto});
   }
